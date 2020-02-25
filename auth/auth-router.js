@@ -22,7 +22,11 @@ router.post('/login', (req, res) => {
   Users
   .findByUsername(username)
   .then(user => {
-    if (user && bcrypt.compareSync(password, user.password)) {
+    console.log(user);
+    let bcryptPass = bcrypt.compareSync(password, user.password);
+    console.log(bcryptPass);
+
+    if (user && bcryptPass) {
       req.session.user = user;
       res.status(200).json({ message: 'User logged in' });
     } else {
